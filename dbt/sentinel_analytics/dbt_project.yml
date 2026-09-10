@@ -1,0 +1,9 @@
+name: sentinel_analytics
+version: '1.0.0'
+config-version: 2
+profile: sentinel_analytics
+model-paths: ["models"]
+models:
+  sentinel_analytics:
+    staging: {+materialized: view}
+    marts: {+materialized: table}

@@ -1,0 +1,45 @@
+{
+  "name": "pl_sentinel_incremental_ingestion",
+  "parameters": {
+    "entity": {
+      "type": "String"
+    },
+    "watermark": {
+      "type": "String"
+    }
+  },
+  "activities": [
+    {
+      "name": "LookupWatermark",
+      "type": "Lookup"
+    },
+    {
+      "name": "CopyToBronze",
+      "type": "Copy",
+      "dependsOn": [
+        "LookupWatermark"
+      ]
+    },
+    {
+      "name": "RunSilverNotebook",
+      "type": "DatabricksNotebook",
+      "dependsOn": [
+        "CopyToBronze"
+      ]
+    },
+    {
+      "name": "RunGoldNotebook",
+      "type": "DatabricksNotebook",
+      "dependsOn": [
+        "RunSilverNotebook"
+      ]
+    },
+    {
+      "name": "AuditPipelineRun",
+      "type": "StoredProcedure",
+      "dependsOn": [
+        "RunGoldNotebook"
+      ]
+    }
+  ]
+}
