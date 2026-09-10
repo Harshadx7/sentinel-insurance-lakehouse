@@ -1,4 +1,3 @@
-from pyspark.sql import DataFrame, functions as F
 
 def required(df: DataFrame, columns: list[str]) -> DataFrame:
     failure=None
@@ -17,3 +16,4 @@ def non_negative(df: DataFrame, columns: list[str]) -> DataFrame:
 def status(df: DataFrame) -> DataFrame:
     bad=F.coalesce(F.col("_dq_required_failed"),F.lit(False)) | F.coalesce(F.col("_dq_negative_failed"),F.lit(False))
     return df.withColumn("dq_status",F.when(bad,"QUARANTINE").otherwise("VALID"))
+
