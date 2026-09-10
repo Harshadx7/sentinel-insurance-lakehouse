@@ -88,10 +88,3 @@ spark-submit src/jobs/gold_marts.py
 
 ## Portfolio disclaimer
 All data is synthetically generated. No client, employer, policyholder or production data is included.
-
-## Resume project entry
-**Sentinel Insurance Lakehouse | Personal Data Engineering Portfolio Project**  
-Designed an end-to-end insurance analytics lakehouse using Python, PySpark and Delta Lake, implementing Bronze/Silver/Gold layers, incremental ingestion, SCD Type 2, data-quality validation, reconciliation and dimensional analytics marts. Built reporting-ready datasets for written premium, incurred claims, loss ratio, settlement cycle time and fraud-risk analysis.
-
-## Interview one-minute story
-“I built Sentinel as a production-inspired insurance data platform. I generated relational source data for customers, brokers, policies, claims and payments and designed a medallion architecture. Bronze preserves raw source data with ingestion metadata. Silver performs deduplication, schema standardisation and data-quality validation, with invalid records isolated for investigation. Gold publishes star-schema facts and dimensions and calculates insurance KPIs such as written premium, incurred claims and loss ratio. I also included incremental processing patterns, SCD Type 2 customer history, reconciliation checks, SQL analytics and dbt warehouse models. The project is synthetic but intentionally mirrors enterprise data-engineering design decisions.”
