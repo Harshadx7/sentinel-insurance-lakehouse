@@ -39,26 +39,66 @@ def main():
         "effective_date":start.date().isoformat(),"expiry_date":(start+timedelta(days=365)).date().isoformat(),
         "written_premium":round(random.uniform(250,12000),2),"currency":random.choice(["AUD","USD","GBP"]),
         "updated_at":(now-timedelta(days=random.randint(0,90))).isoformat()})
-    claims=[]; payments=[]
-    for i in range(1,N_CLAIMS+1):
-        p=random.choice(policies); reported=now-timedelta(days=random.randint(1,730))
-        incurred=round(random.uniform(100,max(1000,p["written_premium"]*8)),2)
-        paid=round(incurred*random.uniform(0,1),2)
-        cid=f"CL{i:010d}"
-        claims.append({"claim_id":cid,"policy_id":p["policy_id"],"reported_date":reported.date().isoformat(),
-        "claim_status":random.choice(CLAIM_STATUS),"claim_type":p["product"],"incurred_amount":incurred,
-        "fraud_score":round(random.betavariate(1.2,5)*100,2),"updated_at":now.
-        if paid > 0:
-           payments.append({
-        "payment_id": str(uuid.uuid4()),
+    claims = []
+payments = []
+
+for i in range(1, N_CLAIMS + 1):
+
+    p = random.choice(policies)
+
+    reported = (
+        now - timedelta(
+            days=random.randint(1, 730)
+        )
+    )
+
+    incurred = round(
+        random.uniform(
+            100,
+            max(
+                1000,
+                p["written_premium"] * 8
+            )
+        ),
+        2
+    )
+
+    paid = round(
+        incurred * random.uniform(0, 1),
+        2
+    )
+
+    cid = f"CL{i:010d}"
+
+    claims.append({
         "claim_id": cid,
-        "payment_date": (
-            reported + timedelta(days=random.randint(1, 90))
-        ).date().isoformat(),
-        "payment_amount": paid,
-        "payment_type": "INDEMNITY",
+        "policy_id": p["policy_id"],
+        "reported_date": reported.date().isoformat(),
+        "claim_status": random.choice(CLAIM_STATUS),
+        "claim_type": p["product"],
+        "incurred_amount": incurred,
+        "fraud_score": round(
+            random.betavariate(1.2, 5) * 100,
+            2
+        ),
         "updated_at": now.isoformat()
     })
+
+    if paid > 0:
+
+        payments.append({
+            "payment_id": str(uuid.uuid4()),
+            "claim_id": cid,
+            "payment_date": (
+                reported
+                + timedelta(
+                    days=random.randint(1, 90)
+                )
+            ).date().isoformat(),
+            "payment_amount": paid,
+            "payment_type": "INDEMNITY",
+            "updated_at": now.isoformat()
+        })
     for name,rows in [("customers",customers),("brokers",brokers),("policies",policies),("claims",claims),("payments",payments)]: save(name,rows)
     print(f"Generated {len(customers)} customers, {len(policies)} policies, {len(claims)} claims, {len(payments)} payments")
 if __name__=="__main__": main()
