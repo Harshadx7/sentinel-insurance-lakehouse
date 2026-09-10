@@ -47,9 +47,9 @@ def main():
         cid=f"CL{i:010d}"
         claims.append({"claim_id":cid,"policy_id":p["policy_id"],"reported_date":reported.date().isoformat(),
         "claim_status":random.choice(CLAIM_STATUS),"claim_type":p["product"],"incurred_amount":incurred,
-        "fraud_score":round(random.betavariate(1.2,5)*100,2),"updated_at":now.isoformat()})
+        "fraud_score":round(random.betavariate(1.2,5)*100,2),"updated_at":now.
         if paid > 0:
-    payments.append({
+           payments.append({
         "payment_id": str(uuid.uuid4()),
         "claim_id": cid,
         "payment_date": (
