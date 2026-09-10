@@ -1,0 +1,16 @@
+entities:
+  customers:
+    key: customer_id
+    watermark_column: updated_at
+  brokers:
+    key: broker_id
+    watermark_column: updated_at
+  policies:
+    key: policy_id
+    watermark_column: updated_at
+  claims:
+    key: claim_id
+    watermark_column: updated_at
+  payments:
+    key: payment_id
+    watermark_column: updated_at
