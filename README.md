@@ -77,4 +77,3 @@ How to Run
 Project Structure
 Key Engineering Decisions
 Testing
-Interview Summary 
