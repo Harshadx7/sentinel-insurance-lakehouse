@@ -72,3 +72,9 @@ The project processes synthetic insurance data through Bronze, Silver and Gold l
                     │ Dimensions + Facts     │
                     │ Insurance KPI Mart     │
                     └────────────────────────┘
+Data Flow
+How to Run
+Project Structure
+Key Engineering Decisions
+Testing
+Interview Summary 
