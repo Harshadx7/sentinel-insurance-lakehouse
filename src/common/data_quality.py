@@ -65,28 +65,23 @@ def status(
     df: DataFrame,
 ) -> DataFrame:
 
-    required_failed = (
-        F.coalesce(
+    if "_dq_required_failed" in df.columns:
+        required_failed = F.coalesce(
             F.col("_dq_required_failed"),
             F.lit(False),
         )
-        if "_dq_required_failed" in df.columns
-        else F.lit(False)
-    )
+    else:
+        required_failed = F.lit(False)
 
-    negative_failed = (
-        F.coalesce(
+    if "_dq_negative_failed" in df.columns:
+        negative_failed = F.coalesce(
             F.col("_dq_negative_failed"),
             F.lit(False),
         )
-        if "_dq_negative_failed" in df.columns
-        else F.lit(False)
-    )
+    else:
+        negative_failed = F.lit(False)
 
-    bad = (
-        required_failed
-        | negative_failed
-    )
+    bad = required_failed | negative_failed
 
     return df.withColumn(
         "dq_status",
@@ -94,6 +89,6 @@ def status(
             bad,
             "QUARANTINE",
         ).otherwise(
-            "VALID"
+            "VALID",
         ),
     )
