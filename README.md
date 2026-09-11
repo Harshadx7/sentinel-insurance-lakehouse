@@ -1,90 +1,20 @@
 # Sentinel Insurance Lakehouse
-## Enterprise Claims, Policy & Fraud Analytics Platform
 
-> **Flagship Data Engineering Portfolio Project**
+A production-inspired PySpark and Delta Lake portfolio project for insurance data engineering.
 
-A production-inspired end-to-end insurance data platform demonstrating batch ingestion, medallion architecture, incremental processing, data quality, SCD Type 2, Delta Lake, dbt-style warehouse modelling, reconciliation and BI-ready analytics.
-
-## Executive summary
-Sentinel is a fictional global insurer. Operational systems generate customer, policy, broker, claim and payment data. The platform ingests these sources into a Bronze layer, cleans and validates them in Silver, and publishes dimensional Gold marts for analytics.
-
-**Business outcomes**
-- Written premium and policy growth
-- Incurred claims and loss ratio
-- Claim settlement cycle time
-- Broker and regional performance
-- High-risk fraud triage
+## Implemented capabilities
+- YAML configuration-driven entities
+- Synthetic insurance data generation
+- Incremental Bronze ingestion with persisted watermarks
+- Silver deduplication, data quality and Delta MERGE upserts
+- Quarantine routing
+- Pipeline audit logging
+- Gold dimensional model and insurance KPI mart
+- Customer SCD Type 2 history
 - Source-to-target reconciliation
+- Automated repository tests and GitHub Actions CI
 
-## Architecture
-```text
-Synthetic Operational Systems
-CSV / API / Database simulation
-            |
-            v
- Azure Data Factory (orchestration pattern)
-            |
-            v
-      ADLS GEN2 - BRONZE
- Raw data + source metadata + batch audit
-            |
-            v
- Azure Databricks / PySpark
- Deduplication + validation + standardisation
-            |
-            v
-      DELTA LAKE - SILVER
- Clean, conformed, quarantine records
-            |
-            v
- Delta MERGE / SCD Type 2 / Business rules
-            |
-            v
-        GOLD LAYER
- Dimensions + Facts + KPI marts
-            |
-       +----+-----+
-       |          |
-       v          v
- Snowflake/dbt   Power BI/Tableau
-```
+See `docs/architecture.md`, `docs/data_model.md` and `docs/how_to_run.md`.
 
-## Technology stack
-Azure Data Factory | ADLS Gen2 | Azure Databricks | PySpark | Delta Lake | Python | SQL | dbt | Snowflake | Power BI/Tableau
-
-## Data model
-**Dimensions:** dim_customer, dim_policy, dim_broker, dim_date  
-**Facts:** fact_policy_premium, fact_claim, fact_payment  
-**Mart:** mart_insurance_kpi
-
-## Engineering capabilities demonstrated
-- Bronze / Silver / Gold architecture
-- Incremental ingestion and watermark pattern
-- Idempotent processing
-- Delta Lake MERGE
-- SCD Type 2 history
-- PySpark window functions
-- Data quality checks and quarantine
-- Source-to-target reconciliation
-- Star schema modelling
-- SQL CTEs and window functions
-- dbt transformations and tests
-- Parameterized orchestration design
-
-## Quick start
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python -m src.generators.generate_data
-```
-
-For Spark:
-```bash
-spark-submit src/jobs/bronze_ingestion.py
-spark-submit src/jobs/silver_transform.py
-spark-submit src/jobs/gold_marts.py
-```
-
-## Portfolio disclaimer
-All data is synthetically generated. No client, employer, policyholder or production data is included.
+## Interview story
+“I built a production-inspired insurance lakehouse using PySpark and Delta Lake. Entity metadata is driven by YAML configuration. Bronze ingestion tracks per-entity watermarks for incremental processing. Silver deduplicates records, applies data-quality rules and uses Delta MERGE for upserts, routing invalid records to quarantine. Gold publishes dimensions, facts and insurance KPIs. I also implemented customer SCD Type 2 history, audit logging, reconciliation and CI-based tests.”
