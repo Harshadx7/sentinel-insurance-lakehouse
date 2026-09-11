@@ -1,8 +1,6 @@
-pyspark>=3.5.0
-delta-spark>=3.2.0
-pandas>=2.2.0
-faker>=25.0.0
-pytest>=8.0.0
-pyyaml>=6.0.0
-dbt-core>=1.8.0
-dbt-snowflake>=1.8.0
+pyspark>=3.5,<4.0
+delta-spark>=3.2,<4.0
+pandas>=2.0
+Faker>=24.0
+PyYAML>=6.0
+pytest>=8.0

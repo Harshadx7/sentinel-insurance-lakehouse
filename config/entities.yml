@@ -1,0 +1,6 @@
+entities:
+  customers: {key: customer_id, watermark_column: updated_at, required_columns: [customer_id, email], amount_columns: []}
+  brokers: {key: broker_id, watermark_column: updated_at, required_columns: [broker_id, broker_name], amount_columns: []}
+  policies: {key: policy_id, watermark_column: updated_at, required_columns: [policy_id, customer_id, written_premium], amount_columns: [written_premium]}
+  claims: {key: claim_id, watermark_column: updated_at, required_columns: [claim_id, policy_id, incurred_amount], amount_columns: [incurred_amount, fraud_score]}
+  payments: {key: payment_id, watermark_column: updated_at, required_columns: [payment_id, claim_id, payment_amount], amount_columns: [payment_amount]}
